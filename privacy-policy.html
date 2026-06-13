@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Generate / Edit Image — PROMPT_X</title>
-<meta name="description" content="Upload your photo, choose a PROMPT_X prompt, and generate your edited image instantly.">
+<title>Privacy Policy — PROMPT_X</title>
+<meta name="description" content="Privacy Policy for PROMPT_X — how we handle your data, cookies, and ads.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cfc%22/><text x=%2250%22 y=%2268%22 font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2260%22 fill=%22%23c8ff4d%22 text-anchor=%22middle%22>X</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
       <a href="index.html">Library</a>
       <a href="index.html#styles">Browse by Style</a>
       <a href="index.html#about">About</a>
-      <a href="generate.html" class="active">Generate / Edit Image</a>
+      <a href="generate.html">Generate / Edit Image</a>
     </nav>
 
     <div class="header-actions">
@@ -44,77 +44,60 @@
 </header>
 
 <main>
-  <section class="hero" style="padding-bottom:16px;">
+  <section class="hero" style="padding-bottom:16px; text-align:left;">
     <div class="container">
-      <div class="eyebrow">In-Browser AI Generator</div>
-      <h1>Generate or Edit Your <span class="grad">Image</span></h1>
-      <p class="lead">Upload a photo, pick a prompt from the PROMPT_X library, and generate your edited image — no copy-paste needed.</p>
+      <div class="eyebrow">Legal</div>
+      <h1>Privacy <span class="grad">Policy</span></h1>
+      <p class="lead" style="margin:0;">Last updated: June 13, 2026</p>
     </div>
   </section>
 
   <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="generate-panel">
-        <div>
-          <h2>1. Upload your photo</h2>
-          <p class="sub">PNG or JPG. Used only to preview your edit — nothing is uploaded to a server in this demo.</p>
+      <div class="legal-content">
 
-          <label class="upload-box" id="uploadBox">
-            <input type="file" id="fileInput" accept="image/*">
-            <div class="upload-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <strong>Drag & drop your photo here</strong>
-            <span>or click to browse</span>
-            <img class="upload-preview" id="uploadPreview" alt="Your uploaded photo">
-            <button type="button" class="remove-img" id="removeImg" aria-label="Remove image">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </label>
-        </div>
+        <h2>1. Introduction</h2>
+        <p>PROMPT_X ("we", "us", or "our") operates this website (the "Service"). This Privacy Policy explains how we collect, use, and protect information when you use our Service, including the prompt library and the in-browser image generator/editor.</p>
 
-        <div>
-          <h2>2. Choose your prompt</h2>
-          <p class="sub">Pick a prompt from the library — your selection comes pre-filled if you arrived from a prompt card.</p>
+        <h2>2. Information We Collect</h2>
+        <p>We aim to collect as little personal information as possible.</p>
+        <ul>
+          <li><strong>Photos you upload:</strong> When you use the Generate / Edit Image tool, your photo is processed in your browser for preview purposes. We do not permanently store your uploaded images on our servers unless explicitly stated otherwise within a specific feature.</li>
+          <li><strong>Usage data:</strong> We may collect standard log data such as browser type, device type, pages visited, and approximate location (via IP address) to understand how the Service is used and to improve it.</li>
+          <li><strong>Cookies and similar technologies:</strong> We use cookies and similar tracking technologies for site functionality, analytics, and to support advertising (see Section 4).</li>
+        </ul>
 
-          <div class="prompt-selector">
-            <div>
-              <label for="promptSelect">Prompt</label>
-              <select class="select-field" id="promptSelect"></select>
-            </div>
+        <h2>3. How We Use Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Operate, maintain, and improve the Service</li>
+          <li>Provide the prompt library and image generation features</li>
+          <li>Understand usage trends and improve user experience</li>
+          <li>Display relevant advertising (see Section 4)</li>
+        </ul>
 
-            <div>
-              <label>Prompt details</label>
-              <div class="selected-prompt-preview" id="promptPreview"></div>
-            </div>
+        <h2>4. Advertising and Third-Party Services</h2>
+        <p>PROMPT_X may display advertisements served by third-party advertising companies, including Google AdSense. These companies may use cookies, web beacons, and similar technologies to collect information about your visits to this and other websites in order to provide advertisements about goods and services that may be of interest to you.</p>
+        <p>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to this site and/or other sites on the Internet. You may opt out of personalized advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>.</p>
 
-            <div class="generate-actions">
-              <button class="btn btn-primary" id="generateBtn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/><path d="M19 14l.7 2.1L22 17l-2.3.9L19 20l-.7-2.1L16 17l2.3-.9z"/></svg>
-                Generate Image
-              </button>
-              <button class="btn btn-ghost" id="copyPromptBtn">Copy Prompt</button>
-            </div>
-          </div>
-        </div>
+        <h2>5. Third-Party Links</h2>
+        <p>Our Service may contain links to third-party websites or services that are not owned or controlled by PROMPT_X. We are not responsible for the content, privacy policies, or practices of any third-party sites.</p>
 
-        <div class="result-area" style="grid-column:1 / -1;">
-          <h2 style="margin-bottom:16px;">3. Result</h2>
-          <div class="result-grid">
-            <div>
-              <div class="result-label">Your Photo</div>
-              <div class="result-box" id="sourceBox">
-                <div class="placeholder">Upload a photo to see it here</div>
-              </div>
-            </div>
-            <div>
-              <div class="result-label">Generated Result</div>
-              <div class="result-box" id="resultBox">
-                <div class="placeholder">Your generated image will appear here</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h2>6. Data Security</h2>
+        <p>We take reasonable measures to protect information processed through our Service. However, no method of transmission or storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+        <h2>7. Children's Privacy</h2>
+        <p>Our Service is not directed to individuals under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us so we can take appropriate action.</p>
+
+        <h2>8. Your Rights</h2>
+        <p>Depending on your location, you may have rights regarding your personal data, including the right to access, correct, or delete your information, and the right to opt out of certain data processing activities such as personalized advertising.</p>
+
+        <h2>9. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date.</p>
+
+        <h2>10. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:thanushvijayakumar2k8@gmail.com">thanushvijayakumar2k8@gmail.com</a>.</p>
+
       </div>
     </div>
   </section>
@@ -171,7 +154,6 @@
   </div>
 </footer>
 
-<script src="prompts.js"></script>
-<script src="generate.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

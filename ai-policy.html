@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>PROMPT_X — AI Photo Editing Prompts Library</title>
-<meta name="description" content="PROMPT_X is a curated library of AI photo editing prompts for Gemini, ChatGPT and Midjourney. Copy a prompt or generate your image directly on the site.">
+<title>AI Policy — PROMPT_X</title>
+<meta name="description" content="AI Policy for PROMPT_X — how AI is used, content responsibility, and ethical guidelines.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cfc%22/><text x=%2250%22 y=%2268%22 font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2260%22 fill=%22%23c8ff4d%22 text-anchor=%22middle%22>X</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,25 +12,25 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
- 
+
 <header class="site-header">
   <div class="header-inner">
     <a href="index.html" class="logo">
       <span class="logo-mark">X</span>
       <span class="logo-text">PROMPT<span>_X</span></span>
     </a>
- 
+
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
- 
+
     <nav class="main-nav" id="mainNav">
-      <a href="index.html" class="active">Library</a>
-      <a href="#styles">Browse by Style</a>
-      <a href="#about">About</a>
+      <a href="index.html">Library</a>
+      <a href="index.html#styles">Browse by Style</a>
+      <a href="index.html#about">About</a>
       <a href="generate.html">Generate / Edit Image</a>
     </nav>
- 
+
     <div class="header-actions">
       <a href="generate.html" class="btn btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
@@ -42,76 +42,58 @@
     </div>
   </div>
 </header>
- 
+
 <main>
-  <section class="hero">
+  <section class="hero" style="padding-bottom:16px; text-align:left;">
     <div class="container">
-      <div class="eyebrow">Prompt Library + In-Browser Generator</div>
-      <h1>AI Photo Editing Prompts <span class="grad">for Gemini & ChatGPT</span></h1>
-      <p class="lead">Copy a battle-tested prompt, paste it into your favorite AI tool — or skip the copy-paste entirely and generate your edited photo right here on PROMPT_X.</p>
-      <div class="hero-links">
-        <span class="label">Popular:</span>
-        <a href="#" data-filter="portraits">Portraits</a>
-        <a href="#" data-filter="fashion">Fashion & Editorial</a>
-        <a href="#" data-filter="photography">Photography</a>
-        <a href="#" data-filter="cinematic">Cinematic</a>
-        <a href="#" data-filter="digital-art">Digital Art</a>
-      </div>
+      <div class="eyebrow">Legal</div>
+      <h1>AI <span class="grad">Policy</span></h1>
+      <p class="lead" style="margin:0;">Last updated: June 13, 2026</p>
     </div>
   </section>
- 
-  <section class="section" id="library">
+
+  <section class="section" style="padding-top:0;">
     <div class="container">
-      <div class="section-head">
-        <h2>Browse Prompts</h2>
-        <div class="tabs" id="tabFilters">
-          <button class="tab active" data-tab="all">Latest</button>
-          <button class="tab" data-tab="trending">Trending</button>
-          <button class="tab" data-tab="popular">Popular</button>
-        </div>
-      </div>
- 
-      <div class="grid" id="promptGrid">
-        <!-- cards injected by script.js -->
-      </div>
- 
-      <div class="load-more-wrap">
-        <button class="btn btn-ghost" id="loadMoreBtn">Load More…</button>
-      </div>
-    </div>
-  </section>
- 
-  <section class="section" id="styles">
-    <div class="container">
-      <div class="section-head">
-        <h2>Browse by Style</h2>
-      </div>
-      <p style="color:var(--text-dim); margin-top:-10px; margin-bottom:20px; max-width:560px;">Find the perfect aesthetic for your next project, then jump straight into the generator with that style pre-selected.</p>
-      <div class="style-grid" id="styleGrid">
-        <!-- styles injected by script.js -->
-      </div>
-    </div>
-  </section>
- 
-  <section class="section" id="about">
-    <div class="container">
-      <div class="about">
-        <div>
-          <h2>What is PROMPT_X?</h2>
-          <p>PROMPT_X is a curated, battle-tested library of AI photo editing prompts built for everyone — from casual users to creators, photographers and designers. Every prompt is written for chat-based AI tools like Gemini and ChatGPT, and tested for reliable, consistent results.</p>
-          <br>
-          <p>Don't just copy and paste — upload your own photo, pick a prompt, and watch PROMPT_X generate your edited image instantly, right inside the browser.</p>
-        </div>
-        <div class="about-card">
-          <span class="logo-mark">X</span>
-          <h3>PROMPT_X</h3>
-          <p>The all-in-one library and generator for high-fidelity AI photo editing prompts.</p>
-        </div>
+      <div class="legal-content">
+
+        <h2>1. Overview</h2>
+        <p>PROMPT_X is built around the use of artificial intelligence tools for photo editing. This AI Policy explains how AI is used on our platform, what you can expect from our prompts and generator, and your responsibilities when using AI-related features.</p>
+
+        <h2>2. Nature of Our Prompts</h2>
+        <p>The prompts in our library are written instructions designed to be used with AI image-editing tools (such as Gemini, ChatGPT, or similar models). PROMPT_X does not create, train, or own the underlying AI models referenced. We simply curate and provide prompt text.</p>
+
+        <h2>3. In-Browser Generator / Editor</h2>
+        <p>Our Generate / Edit Image tool allows you to preview how a prompt might be applied to your photo. Depending on availability, actual image generation may be powered by third-party AI services. Generated results are provided "as is" and may not always be available, accurate, or of consistent quality.</p>
+
+        <h2>4. No Guarantee of Output</h2>
+        <p>AI-generated results can be unpredictable. We do not guarantee that any prompt will produce a specific result, and outputs may vary between attempts, models, and updates to underlying AI systems.</p>
+
+        <h2>5. Responsible Use</h2>
+        <p>You agree not to use PROMPT_X prompts or generated images to:</p>
+        <ul>
+          <li>Create misleading, deceptive, or defamatory content about real people</li>
+          <li>Generate non-consensual or inappropriate imagery of any individual</li>
+          <li>Violate any third party's intellectual property or privacy rights</li>
+          <li>Produce content that violates applicable laws or platform policies of AI providers</li>
+        </ul>
+
+        <h2>6. Uploaded Images</h2>
+        <p>When you upload an image to our generator, it is processed for the purpose of previewing your edit. You are responsible for ensuring you have the right to use and edit any image you upload, including images containing other people, with their consent.</p>
+
+        <h2>7. AI Content Disclosure</h2>
+        <p>Images produced via our generator are AI-generated or AI-assisted. If you use such images publicly, we encourage you to disclose that they were created or modified using AI, in line with platform guidelines and applicable regulations.</p>
+
+        <h2>8. Continuous Updates</h2>
+        <p>AI technology evolves rapidly. Prompts, features, and underlying models may be updated, replaced, or removed at any time without prior notice as we improve the Service.</p>
+
+        <h2>9. Contact Us</h2>
+        <p>For questions about this AI Policy, please contact us at <a href="mailto:thanushvijayakumar2k8@gmail.com">thanushvijayakumar2k8@gmail.com</a>.</p>
+
       </div>
     </div>
   </section>
 </main>
- 
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -133,17 +115,17 @@
           </a>
         </div>
       </div>
- 
+
       <div class="footer-col">
         <h4>Explore</h4>
         <ul>
           <li><a href="index.html">Prompt Library</a></li>
-          <li><a href="#styles">Browse by Style</a></li>
+          <li><a href="index.html#styles">Browse by Style</a></li>
           <li><a href="generate.html">Generate / Edit Image</a></li>
-          <li><a href="#about">About Us</a></li>
+          <li><a href="index.html#about">About Us</a></li>
         </ul>
       </div>
- 
+
       <div class="footer-col">
         <h4>Legal</h4>
         <ul>
@@ -154,7 +136,7 @@
         </ul>
       </div>
     </div>
- 
+
     <div class="footer-bottom">
       © 2026 PROMPT_X. All rights reserved.<br>
       Contact: <a href="mailto:thanushvijayakumar2k8@gmail.com">thanushvijayakumar2k8@gmail.com</a> ·
@@ -162,8 +144,7 @@
     </div>
   </div>
 </footer>
- 
-<script src="prompts.js"></script>
+
 <script src="script.js"></script>
 </body>
 </html>
