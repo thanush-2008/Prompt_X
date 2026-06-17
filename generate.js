@@ -17,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const sourceBox = document.getElementById("sourceBox");
   const resultBox = document.getElementById("resultBox");
 
-  let uploadedImageData = null;
+  let uploadedImageData = null; // base64 string
+  let uploadedMimeType = "image/jpeg";
 
   // ---------- Mobile nav ----------
   if (navToggle && mainNav) {
@@ -71,13 +72,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Upload handling ----------
   function handleFile(file) {
     if (!file || !file.type.startsWith("image/")) return;
+    uploadedMimeType = file.type;
     const reader = new FileReader();
     reader.onload = (e) => {
-      uploadedImageData = e.target.result;
-      uploadPreview.src = uploadedImageData;
+      const fullDataUrl = e.target.result;
+      // Strip the "data:image/...;base64," prefix — we only want raw base64
+      uploadedImageData = fullDataUrl.split(",")[1];
+      uploadPreview.src = fullDataUrl;
       uploadBox.classList.add("has-image");
-
-      sourceBox.innerHTML = `<img src="${uploadedImageData}" alt="Uploaded photo">`;
+      sourceBox.innerHTML = `<img src="${fullDataUrl}" alt="Uploaded photo">`;
       resultBox.innerHTML = `<div class="placeholder">Click "Generate Image" to apply your selected prompt</div>`;
     };
     reader.readAsDataURL(file);
@@ -119,22 +122,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ---------- Generate ----------
-  generateBtn.addEventListener("click", () => {
+  generateBtn.addEventListener("click", async () => {
     const item = PROMPTS.find((p) => p.id === promptSelect.value);
     if (!item) return;
 
     if (!uploadedImageData) {
-      resultBox.innerHTML = `<div class="placeholder">Upload a photo first, then generate to preview your edit here.</div>`;
-      sourceBox.innerHTML = `<div class="placeholder">Upload a photo to see it here</div>`;
       uploadBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      resultBox.innerHTML = `<div class="placeholder">⬆️ Upload a photo first, then click Generate.</div>`;
       return;
     }
 
-    // Show loading briefly, then display "unable to generate" message.
+    // Show loading spinner
     resultBox.innerHTML = `
       <div class="placeholder">
         <div class="spinner"></div>
-        Generating with “${item.title}”…
+        Generating with AI… this may take 10–20 seconds
       </div>
     `;
 
@@ -142,12 +144,38 @@ document.addEventListener("DOMContentLoaded", () => {
     const originalLabel = generateBtn.innerHTML;
     generateBtn.innerHTML = "Generating…";
 
-    setTimeout(() => {
+    try {
+      const response = await fetch("/.netlify/functions/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageBase64: uploadedImageData,
+          mimeType: uploadedMimeType,
+          prompt: item.prompt
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || "Generation failed");
+      }
+
+      // Display the returned image
+      const imgSrc = `data:${data.mimeType};base64,${data.imageBase64}`;
+      resultBox.innerHTML = `<img src="${imgSrc}" alt="Generated result">`;
+
+    } catch (err) {
+      console.error("Generate error:", err);
       resultBox.innerHTML = `
-        <div class="placeholder">Currently unable to Generate image 😥</div>
+        <div class="placeholder">
+          ❌ Generation failed: ${err.message}<br><br>
+          <small>Please try again or check your API key setup.</small>
+        </div>
       `;
+    } finally {
       generateBtn.disabled = false;
       generateBtn.innerHTML = originalLabel;
-    }, 1800);
+    }
   });
 });
