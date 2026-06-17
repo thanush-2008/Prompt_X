@@ -209,3 +209,49 @@ document.addEventListener("DOMContentLoaded", () => {
   renderGrid();
   renderStyles();
 });
+
+// ===== TRENDING POPUP =====
+(function(){
+  const overlay = document.getElementById("popupOverlay");
+  const closeBtn = document.getElementById("popupClose");
+  const skipBtn  = document.getElementById("popupSkip");
+
+  function openPopup(){
+    overlay.classList.add("visible");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePopup(){
+    overlay.classList.remove("visible");
+    document.body.style.overflow = "";
+  }
+
+  // Show after 1.2s delay
+  setTimeout(openPopup, 1200);
+
+  closeBtn.addEventListener("click", closePopup);
+  skipBtn.addEventListener("click", closePopup);
+
+  // Close on overlay background click
+  overlay.addEventListener("click", function(e){
+    if(e.target === overlay) closePopup();
+  });
+
+  // Copy buttons inside popup
+  document.querySelectorAll(".popup-copy-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      const text = btn.getAttribute("data-prompt");
+      navigator.clipboard.writeText(text).then(function(){
+        btn.classList.add("copied");
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+        setTimeout(function(){
+          btn.classList.remove("copied");
+          btn.innerHTML = orig;
+        }, 1600);
+      }).catch(function(){
+        alert("Please copy manually:\n\n" + text);
+      });
+    });
+  });
+})();

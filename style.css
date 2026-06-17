@@ -723,37 +723,6 @@ img{display:block; max-width:100%;}
   margin-bottom:10px;
 }
 
-/* ============ LEGAL PAGES ============ */
-.legal-content{
-  max-width:760px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.legal-content h2{
-  font-family:var(--font-display);
-  font-size:1.2rem;
-  margin-top:18px;
-}
-
-.legal-content p, .legal-content li{
-  color:var(--text-dim);
-  font-size:0.95rem;
-}
-
-.legal-content ul{
-  padding-left:22px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-
-.legal-content a{
-  color:var(--accent-2);
-}
-.legal-content a:hover{opacity:0.85;}
-
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1024px){
   .grid{grid-template-columns:repeat(3, 1fr);}
@@ -793,4 +762,146 @@ img{display:block; max-width:100%;}
 :focus-visible{
   outline:2px solid var(--accent-2);
   outline-offset:2px;
+}
+
+/* ============ TRENDING POPUP ============ */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+}
+.popup-overlay.visible{
+  opacity:1;
+  pointer-events:all;
+}
+.popup-box{
+  background:var(--bg-soft);
+  border:1px solid var(--card-border);
+  border-radius:22px;
+  width:100%;
+  max-width:780px;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:36px 32px 28px;
+  position:relative;
+  transform:translateY(24px);
+  transition:transform .3s ease;
+}
+.popup-overlay.visible .popup-box{transform:translateY(0);}
+.popup-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid var(--card-border);
+  background:var(--bg);
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:border-color .15s ease, color .15s ease;
+}
+.popup-close:hover{border-color:var(--accent); color:var(--text);}
+.popup-header{text-align:center; margin-bottom:24px;}
+.popup-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#ff4d4d22,#ff4d4d44);
+  border:1px solid #ff4d4d55;
+  color:#ff7070;
+  font-size:0.78rem;
+  font-weight:700;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  padding:5px 14px;
+  border-radius:999px;
+  margin-bottom:12px;
+}
+.popup-title{
+  font-family:var(--font-display);
+  font-size:1.8rem;
+  font-weight:800;
+  margin-bottom:8px;
+  background:var(--accent-grad);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.popup-sub{color:var(--text-dim); font-size:0.9rem; max-width:480px; margin:0 auto;}
+.popup-cards{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:24px;}
+.popup-card{
+  border-radius:14px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  border:1px solid var(--card-border);
+}
+.popup-card--red{background:linear-gradient(160deg,#1a0a0a,#1b1b22); border-color:#ff4d4d33;}
+.popup-card--blue{background:linear-gradient(160deg,#0a0a1a,#1b1b22); border-color:#4d9fff33;}
+.popup-card-heading{font-size:1rem; font-weight:800; line-height:1.25;}
+.popup-card-heading--1{font-family:"Georgia","Times New Roman",serif; color:#ff6b6b;}
+.popup-card-heading--2{font-family:"Space Grotesk","Inter",sans-serif; font-style:italic; color:#5aabff;}
+.popup-card-tag{
+  display:inline-block;
+  font-size:0.72rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:999px;
+}
+.popup-card--red .popup-card-tag{background:#ff4d4d22; color:#ff7070; border:1px solid #ff4d4d44;}
+.popup-card--blue .popup-card-tag{background:#4d9fff22; color:#5aabff; border:1px solid #4d9fff44;}
+.popup-card-desc{font-size:0.82rem; color:var(--text-dim); line-height:1.5;}
+.popup-prompt-box{border-radius:10px; padding:14px; font-size:0.8rem; line-height:1.65; flex:1;}
+.popup-prompt-box--red{background:#ff4d4d0d; border:1px solid #ff4d4d33; color:#ffb0b0;}
+.popup-prompt-box--blue{background:#4d9fff0d; border:1px solid #4d9fff33; color:#a8d4ff;}
+.popup-copy-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:0.8rem;
+  font-weight:600;
+  padding:8px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:opacity .15s ease, transform .12s ease;
+  align-self:flex-start;
+}
+.popup-copy-btn:active{transform:scale(0.97);}
+.popup-copy-btn--red{background:#ff4d4d22; border-color:#ff4d4d55; color:#ff7070;}
+.popup-copy-btn--red:hover{background:#ff4d4d33;}
+.popup-copy-btn--blue{background:#4d9fff22; border-color:#4d9fff55; color:#5aabff;}
+.popup-copy-btn--blue:hover{background:#4d9fff33;}
+.popup-copy-btn.copied{background:var(--accent-2); border-color:var(--accent-2); color:#0e0e12;}
+.popup-footer{display:flex; flex-direction:column; align-items:center; gap:12px; padding-top:4px;}
+.popup-try-btn{font-size:1rem; padding:13px 32px;}
+.popup-skip{
+  background:none;
+  border:none;
+  color:var(--text-dim);
+  font-size:0.85rem;
+  cursor:pointer;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  transition:color .15s ease;
+}
+.popup-skip:hover{color:var(--text);}
+@media(max-width:600px){
+  .popup-cards{grid-template-columns:1fr;}
+  .popup-box{padding:24px 18px 20px;}
+  .popup-title{font-size:1.4rem;}
 }
