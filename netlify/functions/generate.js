@@ -1,38 +1,27 @@
 // Netlify Serverless Function — PROMPT_X Image Generator
-// Calls Google Gemini 2.0 Flash with the uploaded image + selected prompt
+// Calls Google Gemini 2.5 Flash Image with the uploaded image + selected prompt
 // API key is stored securely in Netlify environment variables
 
 exports.handler = async function(event, context) {
-  // Only allow POST requests
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: "Method not allowed" })
-    };
+    return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
   }
 
   try {
     const { imageBase64, mimeType, prompt } = JSON.parse(event.body);
 
     if (!imageBase64 || !prompt) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Missing image or prompt" })
-      };
+      return { statusCode: 400, body: JSON.stringify({ error: "Missing image or prompt" }) };
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
-
     if (!apiKey) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "API key not configured" })
-      };
+      return { statusCode: 500, body: JSON.stringify({ error: "API key not configured" }) };
     }
 
-    // Call Gemini 2.0 Flash image generation endpoint
+    // Use Gemini 2.5 Flash Image Preview model
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -71,15 +60,12 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Extract the generated image from response
+    // Extract generated image from response
     const parts = data.candidates?.[0]?.content?.parts || [];
     const imagePart = parts.find(p => p.inline_data?.mime_type?.startsWith("image/"));
 
     if (!imagePart) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "No image returned from Gemini" })
-      };
+      return { statusCode: 500, body: JSON.stringify({ error: "No image returned from Gemini" }) };
     }
 
     return {
@@ -93,9 +79,6 @@ exports.handler = async function(event, context) {
 
   } catch (err) {
     console.error("Function error:", err);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Server error: " + err.message })
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: "Server error: " + err.message }) };
   }
 };
