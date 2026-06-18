@@ -17,8 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sourceBox = document.getElementById("sourceBox");
   const resultBox = document.getElementById("resultBox");
 
-  let uploadedImageData = null; // base64 string
-  let uploadedMimeType = "image/jpeg";
+  let uploadedImageData = null;
 
   // ---------- Mobile nav ----------
   if (navToggle && mainNav) {
@@ -33,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     promptSelect.appendChild(opt);
   });
 
-  // Pre-select from URL (?prompt=id or ?style=key)
+  // Pre-select from URL
   const params = new URLSearchParams(window.location.search);
   const preselectPrompt = params.get("prompt");
   const preselectStyle = params.get("style");
@@ -72,15 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------- Upload handling ----------
   function handleFile(file) {
     if (!file || !file.type.startsWith("image/")) return;
-    uploadedMimeType = file.type;
     const reader = new FileReader();
     reader.onload = (e) => {
-      const fullDataUrl = e.target.result;
-      // Strip the "data:image/...;base64," prefix — we only want raw base64
-      uploadedImageData = fullDataUrl.split(",")[1];
-      uploadPreview.src = fullDataUrl;
+      uploadedImageData = e.target.result;
+      uploadPreview.src = uploadedImageData;
       uploadBox.classList.add("has-image");
-      sourceBox.innerHTML = `<img src="${fullDataUrl}" alt="Uploaded photo">`;
+      sourceBox.innerHTML = `<img src="${uploadedImageData}" alt="Uploaded photo">`;
       resultBox.innerHTML = `<div class="placeholder">Click "Generate Image" to apply your selected prompt</div>`;
     };
     reader.readAsDataURL(file);
@@ -90,24 +86,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
   });
 
-  // Drag and drop
   ["dragenter", "dragover"].forEach((evt) => {
-    uploadBox.addEventListener(evt, (e) => {
-      e.preventDefault();
-      uploadBox.classList.add("dragover");
-    });
+    uploadBox.addEventListener(evt, (e) => { e.preventDefault(); uploadBox.classList.add("dragover"); });
   });
   ["dragleave", "dragend", "drop"].forEach((evt) => {
-    uploadBox.addEventListener(evt, (e) => {
-      e.preventDefault();
-      uploadBox.classList.remove("dragover");
-    });
+    uploadBox.addEventListener(evt, (e) => { e.preventDefault(); uploadBox.classList.remove("dragover"); });
   });
   uploadBox.addEventListener("drop", (e) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
   });
 
   removeImg.addEventListener("click", (e) => {
@@ -122,60 +109,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ---------- Generate ----------
-  generateBtn.addEventListener("click", async () => {
+  generateBtn.addEventListener("click", () => {
     const item = PROMPTS.find((p) => p.id === promptSelect.value);
     if (!item) return;
 
     if (!uploadedImageData) {
       uploadBox.scrollIntoView({ behavior: "smooth", block: "center" });
-      resultBox.innerHTML = `<div class="placeholder">⬆️ Upload a photo first, then click Generate.</div>`;
       return;
     }
-
-    // Show loading spinner
-    resultBox.innerHTML = `
-      <div class="placeholder">
-        <div class="spinner"></div>
-        Generating with AI… this may take 10–20 seconds
-      </div>
-    `;
 
     generateBtn.disabled = true;
     const originalLabel = generateBtn.innerHTML;
     generateBtn.innerHTML = "Generating…";
 
-    try {
-      const response = await fetch("/.netlify/functions/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          imageBase64: uploadedImageData,
-          mimeType: uploadedMimeType,
-          prompt: item.prompt
-        })
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || data.error) {
-        throw new Error(data.error || "Generation failed");
-      }
-
-      // Display the returned image
-      const imgSrc = `data:${data.mimeType};base64,${data.imageBase64}`;
-      resultBox.innerHTML = `<img src="${imgSrc}" alt="Generated result">`;
-
-    } catch (err) {
-      console.error("Generate error:", err);
+    setTimeout(() => {
       resultBox.innerHTML = `
         <div class="placeholder">
-          ❌ Generation failed: ${err.message}<br><br>
-          <small>Please try again or check your API key setup.</small>
+          Sorry, Currently unable to generate image 😥<br><br>
+          <small style="color:var(--text-dim); line-height:1.8;">
+            Copy the prompt above and paste it into<br>
+            <strong style="color:var(--accent-2);">Gemini</strong> (gemini.google.com) or
+            <strong style="color:var(--accent-2);">ChatGPT</strong> (chatgpt.com)<br>
+            along with your photo to get your edited image for free!
+          </small>
         </div>
       `;
-    } finally {
       generateBtn.disabled = false;
       generateBtn.innerHTML = originalLabel;
-    }
+    }, 800);
   });
 });
