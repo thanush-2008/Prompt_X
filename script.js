@@ -255,3 +255,108 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 })();
+
+// ===== SEARCH FEATURE =====
+(function(){
+  const searchBtn    = document.getElementById("searchBtn");
+  const searchClose  = document.getElementById("searchClose");
+  const searchOverlay= document.getElementById("searchOverlay");
+  const searchInput  = document.getElementById("searchInput");
+  const searchResults= document.getElementById("searchResults");
+  const surpriseBtn  = document.getElementById("surpriseBtn");
+
+  // Category → dot color class
+  function dotClass(category){
+    const c = (category || "").toLowerCase();
+    if(c.includes("cinematic")) return "dot-cinematic";
+    if(c.includes("viral"))     return "dot-viral";
+    if(c.includes("digital art")) return "dot-digital-art";
+    if(c.includes("lifestyle")) return "dot-lifestyle";
+    if(c.includes("photograph")) return "dot-photography";
+    if(c.includes("illustrat")) return "dot-digital-illustration";
+    if(c.includes("fashion"))   return "dot-fashion";
+    if(c.includes("portrait"))  return "dot-portraits";
+    if(c.includes("business"))  return "dot-business";
+    if(c.includes("black"))     return "dot-black-white";
+    return "dot-default";
+  }
+
+  // Category → text color style
+  function categoryColor(category){
+    const c = (category || "").toLowerCase();
+    if(c.includes("cinematic")) return "#a78bfa";
+    if(c.includes("viral"))     return "#ff6b6b";
+    if(c.includes("digital art")) return "#ff9f43";
+    if(c.includes("lifestyle")) return "#26de81";
+    if(c.includes("photograph")) return "#45aaf2";
+    if(c.includes("illustrat")) return "#fd79a8";
+    if(c.includes("fashion"))   return "#fdcb6e";
+    if(c.includes("portrait"))  return "#a29bfe";
+    if(c.includes("business"))  return "#74b9ff";
+    if(c.includes("black"))     return "#b2bec3";
+    return "#c8ff4d";
+  }
+
+  function openSearch(){
+    searchOverlay.classList.add("visible");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => searchInput.focus(), 100);
+  }
+
+  function closeSearch(){
+    searchOverlay.classList.remove("visible");
+    document.body.style.overflow = "";
+    searchInput.value = "";
+    searchResults.innerHTML = '<p class="search-hint">Start typing to search through all 50 prompts…</p>';
+  }
+
+  searchBtn.addEventListener("click", openSearch);
+  searchClose.addEventListener("click", closeSearch);
+  searchOverlay.addEventListener("click", function(e){
+    if(e.target === searchOverlay) closeSearch();
+  });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape") closeSearch();
+  });
+
+  // Live search
+  searchInput.addEventListener("input", function(){
+    const q = searchInput.value.trim().toLowerCase();
+    if(!q){
+      searchResults.innerHTML = '<p class="search-hint">Start typing to search through all 50 prompts…</p>';
+      return;
+    }
+
+    const matches = PROMPTS.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      p.prompt.toLowerCase().includes(q)
+    );
+
+    if(matches.length === 0){
+      searchResults.innerHTML = '<p class="search-no-result">No prompts found for "' + searchInput.value + '" 🙁<br>Try a different keyword!</p>';
+      return;
+    }
+
+    searchResults.innerHTML = matches.map(p => `
+      <a class="search-item" href="generate.html?prompt=${encodeURIComponent(p.id)}">
+        <span class="search-item-dot ${dotClass(p.category)}"></span>
+        <span class="search-item-info">
+          <span class="search-item-title">${p.title}</span>
+          <span class="search-item-category" style="color:${categoryColor(p.category)}">${p.category}</span>
+        </span>
+        <span class="search-item-snippet">${p.prompt.substring(0, 60)}…</span>
+        <span class="search-item-arrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </span>
+      </a>
+    `).join("");
+  });
+
+  // ===== SURPRISE BUTTON =====
+  surpriseBtn.addEventListener("click", function(){
+    const random = PROMPTS[Math.floor(Math.random() * PROMPTS.length)];
+    window.location.href = "generate.html?prompt=" + encodeURIComponent(random.id);
+  });
+
+})();
